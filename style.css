@@ -1,0 +1,43 @@
+html,body{
+    margin: 0px;
+}
+*{
+    box-sizing: border-box;
+    /* it compensates content hirght to keep it same as mentioned */
+}
+
+.menu-container{
+    height: 20px;
+    border: 1px solid red;
+}
+
+.menu-options{
+    height: 60px;
+    border: 1px solid green;
+
+}
+.formula-container{
+    height: 28px;
+    border:1px solid royalblue;
+}
+.content-container{
+    height: calc(100vh - 128px);
+    background: lightgreen;
+    overflow: auto;
+    /* auto used to add a scroll inside the content-container */
+}
+
+.sheets-container{
+    height: 20px;
+    border: 1px solid grey;
+}
+
+.row{
+    display: flex;
+}
+.cell{
+    border: 1px solid;
+    min-width: 80px;
+    min-height: 28px;
+    text-align:center;
+}

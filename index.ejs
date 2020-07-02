@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=Heading%></title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="menu-container">Menu</div>
+    <div class="menu-options">Menu-Option</div>
+    <div class="formula-container">
+        Formula
+        <input type="text">
+        <input type="text">
+    </div>
+    <div class="content-container">
+        <%for(let i=0;i<row;i++){%>
+            <div class="row">
+                <%for(let j=0;j<col;j++){%>
+                <div class="cell" contenteditable="true">
+                    <%= i+"-"+j%>
+                </div>
+                <%}%>
+            </div>
+        <%}%>
+    </div>
+    <div class="sheets-container">Sheets</div>
+</body>
+</html>
