@@ -22,8 +22,10 @@ html,body{
 }
 .content-container{
     height: calc(100vh - 128px);
-    background: lightgreen;
+    background: rgba(216, 216, 216, 0.932);
     overflow: auto;
+    position: relative;
+    
     /* auto used to add a scroll inside the content-container */
 }
 
@@ -36,8 +38,39 @@ html,body{
     display: flex;
 }
 .cell{
-    border: 1px solid;
-    min-width: 80px;
+    border: 1px solid black;
     min-height: 28px;
     text-align:center;
+}
+
+.top-left-cell{
+    height: 28px;
+    width: 28px;
+    background-color: gray;
+}
+.top-row{
+    display: flex;
+    position: absolute;
+    left: 28px;
+    top: 0px;
+    background-color: green;
+    color: white;
+}
+.top-row>.cell{
+min-width: 80px;
+}
+.left-col{
+position: absolute;
+}
+.left-col>.cell{
+    width: 28px
+}
+.grid{
+    position: absolute;
+    left: 28px;
+}
+
+
+.row>.cell{
+    min-width: 80px;
 }
