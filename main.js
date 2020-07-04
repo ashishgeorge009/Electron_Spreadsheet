@@ -12,7 +12,11 @@ ejs.data({
 function createWindow(){
     let win = new electron.BrowserWindow({
         width:800,
-        height:600
+        height:600,
+        webPreferences: {
+            nodeIntegration: true
+        }
+
     })
     win.loadFile("index.ejs").then(function(){
         console.log("Window is opened successfully")
