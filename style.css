@@ -46,7 +46,7 @@ html,body{
 .top-left-cell{
     height: 28px;
     width: 28px;
-    background-color: gray;
+    background-color:rgba(216, 216, 216, 0.932);
 }
 .top-row{
     display: flex;
@@ -61,6 +61,8 @@ min-width: 80px;
 }
 .left-col{
 position: absolute;
+color: white;
+background-color: gray;
 }
 .left-col>.cell{
     width: 28px
