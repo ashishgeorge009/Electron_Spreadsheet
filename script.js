@@ -5,17 +5,18 @@ $(document).ready(function(){
     let lsc;
     $("#grid .cell").on("click", function(){
         let {colId , rowId} = getrc(this);
+        let cellObj = getcell(this);
         let value = String.fromCharCode(65+colId)+(rowId+1);
         $("#address-input").val(value);
+        $("#formula-input").val(cellObj.formula);
     })
 
     $("#grid .cell").on("blur", function(){
         let { colId, rowId } = getrc(this);
         let cellObject = getcell(this);
-        
+        lsc = this;
         if (cellObject.value == $(this).html()) {
-            lsc=this;
-            return
+            return;
         }
 
         if (cellObject.formula) {
@@ -25,11 +26,10 @@ $(document).ready(function(){
         cellObject.value = $(this).text();
         updateCell(rowId, colId, cellObject.value);
         // console.log(db);
-        lsc = this;
+        
     })
     $("#formula-input").on("blur", function(){
         let cellObj = getcell(lsc);
-        console.log(cellObj);
         if (cellObj.formula == $(this).val()) {
             return
         }
@@ -43,8 +43,8 @@ $(document).ready(function(){
         setusnds(lsc, cellObj.formula);
         // calculate your value
         let nVal = evaluate(cellObj);
-        // updateCell(rowId, colId, nval);
-        console.log(db);
+        updateCell(rowId, colId, nVal);
+        // console.log(db);
 
     })
 
@@ -96,7 +96,7 @@ $(document).ready(function(){
         for(let i=0;i < cellObj.upstream.length;i++){
             let cuso = cellObj.upstream[i];
             let colAddress = String.fromCharCode(cuso.colId + 65);
-            let cellAddress = colAddress + (cuso.colId+1);
+            let cellAddress = colAddress + (cuso.rowId+1);
 
             let fusokiVal = db[cuso.rowId][cuso.colId].value;
             // let formula = formula.replace(`/\b(${cellAddress})\b/`,fusokVal);
@@ -114,6 +114,23 @@ $(document).ready(function(){
         console.log(formula);
         // infix evaluation
         return eval(formula);
+    }
+    
+    function updateCell(rowId, colId, nVal) {
+        let cellObject = db[rowId][colId];
+        cellObject.value = nVal;
+        // update ui 
+
+
+        $(`#grid .cell[r-id=${rowId}][c-id=${colId}]`).html(nVal);
+
+        for (let i = 0; i < cellObject.downstream.length; i++) {
+            let dsocordObj = cellObject.downstream[i];
+            let dso = db[dsocordObj.rowId][dsocordObj.colId];
+            let dsonVal = evaluate(dso);
+            updateCell(dsocordObj.rowId, dsocordObj.colId, dsonVal);
+        }
+
     }
             
 
@@ -156,7 +173,6 @@ $(document).ready(function(){
     // Get cell from db
     function getcell(cellElem) {
         let { colId, rowId } = getrc(cellElem);
-        console.log(colId);
         return db[rowId][colId];
     }
 
