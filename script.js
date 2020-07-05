@@ -10,10 +10,22 @@ $(document).ready(function(){
     })
 
     $("#grid .cell").on("blur", function(){
-        let {colId , rowId} = getrc(this);
-        db[rowId][colId].value = $(this).text();
+        let { colId, rowId } = getrc(this);
+        let cellObject = getcell(this);
+        
+        if (cellObject.value == $(this).html()) {
+            lsc=this;
+            return
+        }
+
+        if (cellObject.formula) {
+            rmusnds(cellObject, this);
+        }
+
+        cellObject.value = $(this).text();
+        updateCell(rowId, colId, cellObject.value);
         // console.log(db);
-        lsc =this;
+        lsc = this;
     })
     $("#formula-input").on("blur", function(){
         let cellObj = getcell(lsc);
@@ -78,6 +90,33 @@ $(document).ready(function(){
         cellObject.upstream = [];
 
     }
+    function evaluate(cellObj){
+        let formula = cellObj.formula;
+        console.log(formula);
+        for(let i=0;i < cellObj.upstream.length;i++){
+            let cuso = cellObj.upstream[i];
+            let colAddress = String.fromCharCode(cuso.colId + 65);
+            let cellAddress = colAddress + (cuso.colId+1);
+
+            let fusokiVal = db[cuso.rowId][cuso.colId].value;
+            // let formula = formula.replace(`/\b(${cellAddress})\b/`,fusokVal);
+            let formulCompArr = formula.split(" ");
+            formulCompArr = formulCompArr.map(function (elem) {
+                if (elem == cellAddress) {
+                    return fusokiVal;
+                } else {
+                    return elem;
+                }
+            })
+            formula = formulCompArr.join(" ");
+        }
+
+        console.log(formula);
+        // infix evaluation
+        return eval(formula);
+    }
+            
+
 
     function init(){
         db =[];
