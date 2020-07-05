@@ -30,8 +30,8 @@ $(document).ready(function(){
         // add Formula
         setusnds(lsc, cellObj.formula);
         // calculate your value
-        let nVal = evaluate(cellObj)
-        // updateCell(rowId, colId, nval, true);
+        let nVal = evaluate(cellObj);
+        // updateCell(rowId, colId, nval);
         console.log(db);
 
     })
