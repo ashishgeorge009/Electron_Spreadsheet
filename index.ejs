@@ -12,7 +12,7 @@
     <div  class="formula-container">
         Formula
         <input type="text" id = "address-input">
-        <input type="text">
+        <input type="text" id="formula-input">
     </div>
     <div class="content-container">
         <div id="top-left-cell" class="top-left-cell"></div>
@@ -35,7 +35,7 @@
             <div class="row" >
                 <%for(let j=0;j<col;j++){%>
                 <div class="cell" contenteditable="true" r-id= <%=i%> c-id=<%=j%>>
-                    <%= i+"-"+j%>
+                    <!-- <%= i+"-"+j%> -->
                 </div>
                 <%}%>
             </div>

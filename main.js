@@ -6,7 +6,7 @@ ejs.data({
     "title":"Spreadsheet",
     "Heading":"Spreadsheet_Electron",
     "row":101,
-    "col":26
+    "col":26,
 
 })
 function createWindow(){
