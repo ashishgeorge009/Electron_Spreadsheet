@@ -1,4 +1,6 @@
 const $ = require("jquery");
+const fs = require("fs");
+const dialog = require("electron").remote.dialog;
 
 $(document).ready(function(){
     let db;
@@ -10,7 +12,65 @@ $(document).ready(function(){
         $("#address-input").val(value);
         $("#formula-input").val(cellObj.formula);
     })
+//new file
+    $("#New").on("click", function(){
+        db =[];
+        let AllRows = $("#grid").find(".row");
+        for(let i=0;i<AllRows.length;i++){
+            let AllCols = $(AllRows[i]).find(".cell");
+            let row =[];
+            for(let j=0; j<AllCols.length;j++){
+                let cell = {
+                    value :"",
+                    formula:"",
+                    downstream: [],
+                    upstream: []
+                }
+                row.push(cell);
 
+            }
+        db.push(row);
+        let cellArr = $("#grid .cell");
+        $(cellArr[0]).trigger("click");
+        }
+    })
+//saving the file
+    $("#Save").on("click", async function () {
+        let sdb = await dialog.showOpenDialog();
+        let fp = sdb.filePaths[0];
+        if (fp == undefined) {
+            console.log("Please select file first");
+            return;
+        }
+        let jsonData = JSON.stringify(db);
+        fs.writeFileSync(fp, jsonData);
+        // open dialogBox
+        // select file
+        // write 
+        // Input=> file
+    })
+//opening new file
+    $("#Open").on("click", async function () {
+        let sdb = await dialog.showOpenDialog();
+        let fp = sdb.filePaths[0];
+        if (fp == undefined) {
+            console.log("Please select file first");
+            return;
+        }
+        let buffer = fs.readFileSync(fp);
+        db = JSON.parse(buffer);
+        let AllRows = $("#grid").find(".row");
+        for (let i = 0; i < AllRows.length; i++) {
+            let AllCols = $(AllRows[i]).find(".cell");
+            for (let j = 0; j < AllCols.length; j++) {
+                //    DB
+                $(`#grid .cell[r-id=${i}][c-id=${j}]`).html(db[i][j].value);
+            }
+        }
+    })
+//******************************************************************************************************************* */
+//-----------------------****************FUNCTIONS IN THE FILE(fORMULA HANDELING)--------------------------------------------------------------------------------
+//*************************************************************************** ******************************************/
     $("#grid .cell").on("blur", function(){
         let { colId, rowId } = getrc(this);
         let cellObject = getcell(this);
@@ -82,7 +142,7 @@ $(document).ready(function(){
             let fuso = db[uso.rowId][uso.colId];
             // find index splice yourself
             let fArr = fuso.downstream.filter(function (dCell) {
-                return dCell.colId != colId && dCell.rowId != rowId;
+                return !(dCell.colId == colId && dCell.rowId == rowId);
             })
             fuso.downstream = fArr;
 
@@ -136,23 +196,8 @@ $(document).ready(function(){
 
 
     function init(){
-        db =[];
-        let AllRows = $("#grid").find(".row");
-        for(let i=0;i<AllRows.length;i++){
-            let AllCols = $(AllRows[i]).find(".cell");
-            let row =[];
-            for(let j=0; j<AllCols.length;j++){
-                let cell = {
-                    value :"",
-                    formula:"",
-                    downstream: [],
-                    upstream: []
-                }
-                row.push(cell);
-
-            }
-        db.push(row);
-        }
+        $("#New").trigger("click");
+  
         // console.log(db)
     
     }
