@@ -5,7 +5,7 @@ const ejs = require("ejs-electron");
 ejs.data({
     "title":"Spreadsheet",
     "Heading":"Spreadsheet_Electron",
-    "row":101,
+    "row":100,
     "col":26,
 
 })

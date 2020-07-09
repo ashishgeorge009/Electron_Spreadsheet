@@ -5,6 +5,13 @@ const dialog = require("electron").remote.dialog;
 $(document).ready(function(){
     let db;
     let lsc;
+    $(".menu").on("click", function () {
+        let Id = $(this).attr("id");
+        // File
+        $(".menu-options").removeClass("selected");
+        $(`#${Id}-menu-options`).addClass("selected");
+    })
+
     $("#grid .cell").on("click", function(){
         let {colId , rowId} = getrc(this);
         let cellObj = getcell(this);
@@ -12,7 +19,20 @@ $(document).ready(function(){
         $("#address-input").val(value);
         $("#formula-input").val(cellObj.formula);
     })
-//new file
+
+    $(".content-container").on("scroll", function(){
+        let scrollY = $(this).scrollTop();
+        let scrollX = $(this).scrollLeft();
+        // console.log(scrollY);
+        $("#top-row, #top-left-cell").css("top", scrollY+"px");
+        $("#left-col, #top-left-cell").css("left", scrollX+"px");
+    })
+    $("#grid .cell").on("keyup", function(){
+        let {rowId} = getrc(this);
+        let ht = $(this).height(); //geting height of css
+        $($("#left-col .cell")[rowId]).height(ht);
+    })
+//new file*************************************************************************
     $("#New").on("click", function(){
         db =[];
         let AllRows = $("#grid").find(".row");
@@ -117,7 +137,7 @@ $(document).ready(function(){
         for (let i = 0; i < formulaComponent.length; i++) {
             let charAt0 = formulaComponent[i].charCodeAt(0);
             if (charAt0 > 64 && charAt0 < 91) {
-                let { r, c } = getParentRowCol(formulaComponent[i], charAt0);
+                let { r, c } = getParentRowCol(formulaComponent[i]);
                 let parentCell = db[r][c];
 
                 let { colId, rowId } = getrc(cellELem);
@@ -196,6 +216,7 @@ $(document).ready(function(){
 
 
     function init(){
+        $("#File").trigger("click");
         $("#New").trigger("click");
   
         // console.log(db)
@@ -203,7 +224,8 @@ $(document).ready(function(){
     }
     init();
 
-    function getParentRowCol(cellName, charAt0) {
+    function getParentRowCol(cellName) {
+        let charAt = cellName.charCodeAt(0);
         let sArr = cellName.split("");
         // [A,4,0]
         sArr.shift();
@@ -211,7 +233,7 @@ $(document).ready(function(){
         let sRow = sArr.join("");
         // [4,0]=>"40"
         let r = Number(sRow) - 1;
-        let c = charAt0 - 65;
+        let c = charAt - 65;
         return { r, c };
     }
 

@@ -9,15 +9,29 @@ html,body{
 .menu-container{
     height: 20px;
     border: 1px solid red;
-}
-
-.menu-options{
-    height: 60px;
-    border: 1px solid green;
     display: flex;
     justify-content: space-evenly;
-    width: 127px;
+    width: 124px;
+}
+
+.menu-option-container{
+    height: 60px;
+    border: 1px solid green;
+    justify-content: space-evenly;
+   width: 363px;
     align-items: center;
+    display: block;
+}
+.menu-options{
+    display: none;  
+
+}
+.menu-options.selected{
+   
+    display: flex;
+    justify-content: inherit;
+    align-items: center;
+    height: 100%;
 
 }
 .formula-container{
@@ -51,6 +65,9 @@ html,body{
     height: 28px;
     width: 28px;
     background-color:rgba(216, 216, 216, 0.932);
+    position: absolute;
+    z-index: 3;
+    
 }
 .top-row{
     display: flex;
@@ -59,6 +76,7 @@ html,body{
     top: 0px;
     background-color: green;
     color: white;
+    z-index: 2;
 }
 .top-row>.cell{
 min-width: 80px;
@@ -67,6 +85,8 @@ min-width: 80px;
 position: absolute;
 color: white;
 background-color: gray;
+top: 28px;
+z-index: 2;
 }
 .left-col>.cell{
     width: 28px
@@ -74,9 +94,10 @@ background-color: gray;
 .grid{
     position: absolute;
     left: 28px;
+    top: 28px;
 }
 
 
 .row>.cell{
-    min-width: 80px;
+    width: 80px;
 }
