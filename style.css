@@ -27,17 +27,18 @@ html,body{
 
 }
 .menu-options.selected{
-   
+
     display: flex;
     justify-content: inherit;
     align-items: center;
     height: 100%;
-
 }
+
 .formula-container{
     height: 28px;
     border:1px solid royalblue;
 }
+
 .content-container{
     height: calc(100vh - 128px);
     background: rgba(216, 216, 216, 0.932);
@@ -100,4 +101,8 @@ z-index: 2;
 
 .row>.cell{
     width: 80px;
+}
+
+input[type="button"].isOn{
+    background-color: lightslategrey;
 }

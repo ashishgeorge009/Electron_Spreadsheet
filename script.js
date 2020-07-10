@@ -7,17 +7,10 @@ $(document).ready(function(){
     let lsc;
     $(".menu").on("click", function () {
         let Id = $(this).attr("id");
+        // console.log("clicked");
         // File
         $(".menu-options").removeClass("selected");
         $(`#${Id}-menu-options`).addClass("selected");
-    })
-
-    $("#grid .cell").on("click", function(){
-        let {colId , rowId} = getrc(this);
-        let cellObj = getcell(this);
-        let value = String.fromCharCode(65+colId)+(rowId+1);
-        $("#address-input").val(value);
-        $("#formula-input").val(cellObj.formula);
     })
 
     $(".content-container").on("scroll", function(){
@@ -32,6 +25,155 @@ $(document).ready(function(){
         let ht = $(this).height(); //geting height of css
         $($("#left-col .cell")[rowId]).height(ht);
     })
+//Designing-----------------------------------
+    let lcell;
+    $("#grid .cell").on("click", function(){
+        let {colId , rowId} = getrc(this);
+        let cellObj = getcell(this);
+        let value = String.fromCharCode(65+colId)+(rowId+1);
+        $("#address-input").val(value);
+        $("#formula-input").val(cellObj.formula);
+        $("#bg-color").val(cellObj.bgColor);
+        $("#text-color").val(cellObj.textColor);
+
+        if (lcell && this != lcell) {
+            $(lcell).removeClass("selected");
+        }           
+        $(this).addClass("selected");    
+        if (cellObj.bold) {
+            $("#bold").addClass("isOn")
+        } else {
+            $("#bold").removeClass("isOn")
+        }
+        if (cellObj.italic) {
+            $("#italic").addClass("isOn")
+        } else {
+            $("#italic").removeClass("isOn")
+        }
+        if (cellObj.underline) {
+            $("#underline").addClass("isOn")
+        } else {
+            $("#underline").removeClass("isOn")
+        }
+        ///if statements of align------
+        if (cellObj.halign == "left") {
+            $("input[value='L']").addClass("isOn");
+            $("input[value='C']").removeClass("isOn");
+            $("input[value='R']").removeClass("isOn");
+        } else if(cellObj.halign == "center") {
+            $("input[value='L']").removeClass("isOn");
+            $("input[value='C']").addClass("isOn");
+            $("input[value='R']").removeClass("isOn");
+        }
+        else if(cellObj.halign == "right") {
+            $("input[value='L']").removeClass("isOn");
+            $("input[value='C']").removeClass("isOn");
+            $("input[value='R']").addClass("isOn");
+
+        }
+        else{
+            console.log("Alignment not defined changing to left");
+            $("input[value='L']").addClass("isOn");
+            $("input[value='C']").removeClass("isOn");
+            $("input[value='R']").removeClass("isOn");
+            cellObject.halign = "left";
+        }
+        //-------------
+        lcell = this;
+    })
+//---------bold-------------
+    $("#bold").on("click", function () {
+        $(this).toggleClass("isOn");
+        let isBold = $(this).hasClass("isOn");
+        $("#grid .cell.selected").css("font-weight", isBold ? "bolder" : "normal");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getcell(cellElem);
+        cellObject.bold = isBold;
+    })
+//--------------------italics-----------
+    $("#italic").on("click", function () {
+        $(this).toggleClass("isOn");
+        let isItalic = $(this).hasClass("isOn");
+        $("#grid .cell.selected").css("font-style", isItalic ? "italic" : "normal");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getcell(cellElem);
+        cellObject.italic = isItalic;
+    })
+//---------------underline-----------------------
+    $("#underline").on("click", function () {
+        $(this).toggleClass("isOn");
+        let isUnd = $(this).hasClass("isOn");
+        // console.log(isUnd);
+        $("#grid .cell.selected").css("text-decoration", isUnd ? "underline" : "none");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getcell(cellElem);
+        cellObject.underline = isUnd;
+    })
+////********The alignment----------- */
+    $("input[value='L']").on("click", function () {
+        $(this).addClass("isOn");
+        $("input[value='C']").removeClass("isOn");
+        $("input[value='R']").removeClass("isOn");
+        let isLeft = $(this).hasClass("isOn");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getcell(cellElem);
+        $("#grid .cell.selected").css("text-align", isLeft ? "left" : cellObject.halign);
+        cellObject.halign = "left";
+    })
+    $("input[value='C']").on("click", function () {
+        $(this).addClass("isOn");
+        $("input[value='L']").removeClass("isOn");
+        $("input[value='R']").removeClass("isOn");
+        let isCenter = $(this).hasClass("isOn");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getcell(cellElem);
+        $("#grid .cell.selected").css("text-align", isCenter ? "center" : cellObject.halign);
+        cellObject.halign = "center";
+    })
+    $("input[value='R']").on("click", function () {
+        $(this).addClass("isOn");
+        $("input[value='C']").removeClass("isOn");
+        $("input[value='L']").removeClass("isOn");
+        let isRight = $(this).hasClass("isOn");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getcell(cellElem);
+        $("#grid .cell.selected").css("text-align", isRight ? "right" : cellObject.halign);
+        cellObject.halign = "right";
+    })
+//-----------------fontfamily------------
+    $("#font-family").on("change", function () {
+        let fontFamily = $(this).val();
+        $("#grid .cell.selected").css("font-family", fontFamily);
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getcell(cellElem);
+        cellObject.fontFamily = fontFamily
+    })
+//-----------bg-color--------------
+    $("#bg-color").on("change", function () {
+        let bgColor = $(this).val();
+        let cellElem = $("#grid .cell.selected");
+        cellElem.css("background-color", bgColor);
+        let cellObject = getcell(cellElem);
+        cellObject.bgColor = bgColor
+    })
+//----text-color-----
+    $("#text-color").on("change", function () {
+        let txtColor = $(this).val();
+        let cellElem = $("#grid .cell.selected");
+        cellElem.css("color", txtColor);
+        let cellObject = getcell(cellElem);
+        cellObject.textColor = txtColor;
+    })
+//------font-size--------------------
+    $("#font-size").on("change", function(){
+        let fontSize = Number($(this).val());
+        let cellElem = $("#grid .cell.selected");
+        cellElem.css("font-size", fontSize);
+        let cellObject = getcell(cellElem);
+        cellObject.fontSize = fontSize;
+    })
+
+
 //new file*************************************************************************
     $("#New").on("click", function(){
         db =[];
@@ -44,8 +186,25 @@ $(document).ready(function(){
                     value :"",
                     formula:"",
                     downstream: [],
-                    upstream: []
+                    upstream: [],
+                    bold: false,
+                    underline: false,
+                    italic: false,
+                    fontFamily: "Arial",
+                    fontSize: 12,
+                    bgColor: "white",
+                    textColor: "black",
+                    halign: "left"
                 }
+                $(AllCols[j]).html('');
+                $(AllCols[j]).css("font-weight", cell.bold ? "bolder" : "normal");
+                $(AllCols[j]).css("font-style", cell.italic ? "italic" : "normal");
+                $(AllCols[j]).css("text-decoration", cell.underline ? "underline" : "none");
+                $(AllCols[j]).css("font-family", cell.fontFamily);
+                $(AllCols[j]).css("font-size", cell.fontSize);
+                $(AllCols[j]).css("color", cell.textColor);
+                $(AllCols[j]).css("background-color", cell.bgColor);
+                $(AllCols[j]).css("text-align", cell.halign);
                 row.push(cell);
 
             }
