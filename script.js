@@ -192,7 +192,7 @@ $(document).ready(function(){
                     italic: false,
                     fontFamily: "Arial",
                     fontSize: 12,
-                    bgColor: "white",
+                    bgColor: "lightgray",
                     textColor: "black",
                     halign: "left"
                 }

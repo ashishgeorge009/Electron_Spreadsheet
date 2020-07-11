@@ -7,18 +7,33 @@ html,body{
 }
 
 .menu-container{
-    height: 20px;
-    border: 1px solid red;
+    /* height: 20px; */
+    border: 1px solid green;
     display: flex;
     justify-content: space-evenly;
-    width: 124px;
+    background-color: green;
+    /* width: 124px; */
 }
-
+.menu{
+    padding: 1rem;
+    margin: 0.3rem;
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    border-radius: 1rem;
+}
+#File{
+    padding-left: 23.11px;
+    padding-right: 23.11px;
+}
+.menu:hover{
+    border: 1px solid white;
+}
 .menu-option-container{
     height: 60px;
-    border: 1px solid green;
+    border: 1px solid rgb(185, 185, 185);
     justify-content: space-evenly;
-   width: 363px;
+    background-color: rgb(185, 185, 185);
+   /* width: 363px; */
     align-items: center;
     display: block;
 }
@@ -33,7 +48,18 @@ html,body{
     align-items: center;
     height: 100%;
 }
-
+#File-menu-options div{
+    padding: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 0.3rem;
+    border: 1px solid white;
+    background-color: white;
+    border-radius: 1rem;
+}
+#File-menu-options div:hover{
+    border: 1px solid lightgray;
+}
 .formula-container{
     height: 28px;
     border:1px solid royalblue;
