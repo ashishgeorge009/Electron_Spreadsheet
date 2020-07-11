@@ -114,30 +114,30 @@ $(document).ready(function(){
         $(this).addClass("isOn");
         $("input[value='C']").removeClass("isOn");
         $("input[value='R']").removeClass("isOn");
-        let isLeft = $(this).hasClass("isOn");
+        // let isLeft = $(this).hasClass("isOn");
         let cellElem = $("#grid .cell.selected");
         let cellObject = getcell(cellElem);
-        $("#grid .cell.selected").css("text-align", isLeft ? "left" : cellObject.halign);
+        $("#grid .cell.selected").css("text-align", "left" );
         cellObject.halign = "left";
     })
     $("input[value='C']").on("click", function () {
         $(this).addClass("isOn");
         $("input[value='L']").removeClass("isOn");
         $("input[value='R']").removeClass("isOn");
-        let isCenter = $(this).hasClass("isOn");
+        // let isCenter = $(this).hasClass("isOn");
         let cellElem = $("#grid .cell.selected");
         let cellObject = getcell(cellElem);
-        $("#grid .cell.selected").css("text-align", isCenter ? "center" : cellObject.halign);
+        $("#grid .cell.selected").css("text-align", "center");
         cellObject.halign = "center";
     })
     $("input[value='R']").on("click", function () {
         $(this).addClass("isOn");
         $("input[value='C']").removeClass("isOn");
         $("input[value='L']").removeClass("isOn");
-        let isRight = $(this).hasClass("isOn");
+        // let isRight = $(this).hasClass("isOn");
         let cellElem = $("#grid .cell.selected");
         let cellObject = getcell(cellElem);
-        $("#grid .cell.selected").css("text-align", isRight ? "right" : cellObject.halign);
+        $("#grid .cell.selected").css("text-align", "right");
         cellObject.halign = "right";
     })
 //-----------------fontfamily------------
