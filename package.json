@@ -1,11 +1,14 @@
 {
   "name": "Electron_Spreadsheet",
   "version": "1.0.0",
-  "description": "",
+  "description": "Spreadsheet made by Ashish",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "package-linux": "electron-packager . Electron_Spreadsheet --overwrite --asar=true --platform=linux --arch=x64 --icon=theimage.png --prune=true --out=release-builds",
+    "create-installer-win": "node installers/windows/createinstaller.js",
+    "create-debian-installer": "electron-installer-debian --src release-builds/Electron_Spreadsheet-linux-x64/ --arch amd64 --config debian.json"
   },
   "repository": {
     "type": "git",
@@ -19,7 +22,8 @@
   },
   "homepage": "https://github.com/ashishgeorge009/Electron_Spreadsheet#readme",
   "devDependencies": {
-    "electron": "^9.0.5"
+    "electron": "^9.0.5",
+    "electron-packager": "^15.0.0"
   },
   "dependencies": {
     "ejs-electron": "^2.0.3",

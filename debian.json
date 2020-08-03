@@ -1,0 +1,11 @@
+{
+    "dest": "release-builds/",
+    "icon": "theimage.png",
+    "categories": [
+      "Utility"
+    ],
+    "lintianOverrides": [
+      "changelog-file-missing-in-native-package"
+    ],
+    "description": "Spreadsheet made by AshishDeb"
+  }
