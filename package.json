@@ -1,5 +1,6 @@
 {
   "name": "Electron_Spreadsheet",
+  "productName": "Spreadsheet",
   "version": "1.0.0",
   "description": "Spreadsheet made by Ashish",
   "main": "main.js",
@@ -7,11 +8,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "package-linux": "electron-packager . Electron_Spreadsheet --overwrite --asar=true --platform=linux --arch=x64 --icon=theimage.png --prune=true --out=release-builds",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
-    "package-win": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\"",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=theimage.png --prune=true --out=release-builds",
+    "package-win": "electron-packager . Electron_Spreadsheet --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Spreadsheet\"",
     "create-installer-win": "node installers/windows/createinstaller.js",
     "create-debian-installer": "electron-installer-debian --src release-builds/Electron_Spreadsheet-linux-x64/ --arch amd64 --config debian.json",
-    "create-installer-mac": "electron-installer-dmg ./release-builds/Electron\\ tutorial\\ app-darwin-x64/Electron\\ tutorial\\ app.app electron-tutorial-app --out=release-builds --overwrite --icon=assets/icons/mac/icon.icns"
+    "create-installer-mac": "electron-installer-dmg ./release-builds/Spreadsheet-darwin-x64/Spreadsheet.app Electron_Spreadsheet --out=release-builds --overwrite --icon=theimage.png"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,9 @@
   "homepage": "https://github.com/ashishgeorge009/Electron_Spreadsheet#readme",
   "devDependencies": {
     "electron": "^9.0.5",
-    "electron-packager": "^15.0.0"
+    "electron-installer-dmg": "^3.0.0",
+    "electron-packager": "^15.0.0",
+    "electron-winstaller": "^4.0.1"
   },
   "dependencies": {
     "ejs-electron": "^2.0.3",
