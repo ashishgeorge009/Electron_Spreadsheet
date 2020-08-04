@@ -35,6 +35,8 @@ $(document).ready(function(){
         $("#formula-input").val(cellObj.formula);
         $("#bg-color").val(cellObj.bgColor);
         $("#text-color").val(cellObj.textColor);
+        $("#font-family").val(cellObj.fontFamily);
+        $("#font-size").val(cellObj.fontSize);
 
         if (lcell && this != lcell) {
             $(lcell).removeClass("selected");
@@ -281,8 +283,16 @@ $(document).ready(function(){
         // add Formula
         setusnds(lsc, cellObj.formula);
         // calculate your value
-        let nVal = evaluate(cellObj);
-        updateCell(rowId, colId, nVal);
+        if(isValid(colId, rowId)){
+            let nVal = evaluate(cellObj);
+            updateCell(rowId, colId, nVal);
+        }
+        else{
+            rmusnds(cellObj,lsc);
+            alert("There is an infinite loop in the equation");
+            // updateCell(rowId, colId, 0);
+        }
+       
         // console.log(db);
 
     })
@@ -410,6 +420,28 @@ $(document).ready(function(){
             colId,rowId
         }
 
+    }
+
+    function isValid(rowId, colId) {
+        let ans = isCyclic(rowId, colId, rowId, colId);
+        return ans;
+    }
+
+    function isCyclic(rowId, colId, row, col) {
+        //check upstream of all starting from the cell where formula is put
+        
+        let upstreamArr = db[rowId][colId].upstream;
+        for (let i = 0; i < upstreamArr.length; i++) {
+            let obj = upstreamArr[i];
+            let pRowId = obj.rowId;
+            let pColId = obj.colId;
+            if (pRowId == row && pColId == col) {
+                return false;
+            }
+            let ans = isCyclic(pRowId, pColId, row, col);
+            if (!ans) { return ans; }
+        }
+        return true;
     }
 
 })

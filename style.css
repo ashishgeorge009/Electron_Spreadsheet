@@ -10,28 +10,26 @@ html,body{
     /* height: 20px; */
     border: 1px solid green;
     display: flex;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     background-color: green;
     /* width: 124px; */
 }
 .menu{
-    padding: 1rem;
-    margin: 0.3rem;
-    border: 1px solid lightgray;
-    background-color: lightgray;
-    border-radius: 1rem;
+    padding: 0.5rem;
+    color: white;
 }
 #File{
     padding-left: 23.11px;
     padding-right: 23.11px;
 }
 .menu:hover{
-    border: 1px solid white;
+    /* border: 1px solid white; */
+    color: black;
 }
 .menu-option-container{
     height: 60px;
     border: 1px solid rgb(185, 185, 185);
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     background-color: rgb(185, 185, 185);
    /* width: 363px; */
     align-items: center;
@@ -48,21 +46,30 @@ html,body{
     align-items: center;
     height: 100%;
 }
+.menu-group{
+    display: flex;
+    justify-content: space-evenly;
+    width: 41%;
+}
+#mr1{
+    padding-top: 3px;
+}
 #File-menu-options div{
     padding: 0.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
     margin: 0.3rem;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     background-color: white;
-    border-radius: 1rem;
+    /* border-radius: 1rem; */
 }
 #File-menu-options div:hover{
-    border: 1px solid lightgray;
+    color:  lightgray;
 }
 .formula-container{
     height: 28px;
-    border:1px solid royalblue;
+    padding-top: 4px;
+    padding-left: 6px;
 }
 
 .content-container{
@@ -91,7 +98,7 @@ html,body{
 .top-left-cell{
     height: 28px;
     width: 28px;
-    background-color:rgba(216, 216, 216, 0.932);
+    background-color:rgba(209, 209, 209, 0.932);
     position: absolute;
     z-index: 3;
     
@@ -130,5 +137,5 @@ z-index: 2;
 }
 
 input[type="button"].isOn{
-    background-color: lightslategrey;
+    background-color: lightgray;
 }
